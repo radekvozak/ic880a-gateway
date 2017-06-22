@@ -2,7 +2,7 @@
 
 # Test the connection, wait if needed.
 while [[ $(ping -c1 google.com 2>&1 | grep " 0% packet loss") == "" ]]; do
-  echo "[TLORATECH Gateway]: Waiting for internet connection..."
+  echo "[LORATECH Gateway]: Waiting for internet connection..."
   sleep 30
   done
 
