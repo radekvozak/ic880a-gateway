@@ -11,7 +11,7 @@ fi
 VERSION="spi"
 if [[ $1 != "" ]]; then VERSION=$1; fi
 
-echo "The Things Network Gateway installer"
+echo "LORATECH Gateway installer"
 echo "Version $VERSION"
 
 # Update the gateway installer to the correct branch
@@ -53,16 +53,16 @@ read -r -p "Do you want to use remote settings file? [y/N]" response
 response=${response,,} # tolower
 
 if [[ $response =~ ^(yes|y) ]]; then
-    NEW_HOSTNAME="ttn-gateway"
+    NEW_HOSTNAME="loratech-gateway"
     REMOTE_CONFIG=true
 else
-    printf "       Host name [ttn-gateway]:"
+    printf "       Host name [loratech-gateway]:"
     read NEW_HOSTNAME
-    if [[ $NEW_HOSTNAME == "" ]]; then NEW_HOSTNAME="ttn-gateway"; fi
+    if [[ $NEW_HOSTNAME == "" ]]; then NEW_HOSTNAME="loratech-gateway"; fi
 
-    printf "       Descriptive name [ttn-ic880a]:"
+    printf "       Descriptive name [loratech-ic880a]:"
     read GATEWAY_NAME
-    if [[ $GATEWAY_NAME == "" ]]; then GATEWAY_NAME="ttn-ic880a"; fi
+    if [[ $GATEWAY_NAME == "" ]]; then GATEWAY_NAME="loratech-ic880a"; fi
 
     printf "       Contact email: "
     read GATEWAY_EMAIL
@@ -92,7 +92,7 @@ if [[ $NEW_HOSTNAME != $CURRENT_HOSTNAME ]]; then
 fi
 
 # Install LoRaWAN packet forwarder repositories
-INSTALL_DIR="/opt/ttn-gateway"
+INSTALL_DIR="/opt/loratech-gateway"
 if [ ! -d "$INSTALL_DIR" ]; then mkdir $INSTALL_DIR; fi
 pushd $INSTALL_DIR
 
@@ -150,7 +150,7 @@ if [ -e $LOCAL_CONFIG_FILE ]; then rm $LOCAL_CONFIG_FILE; fi;
 if [ "$REMOTE_CONFIG" = true ] ; then
     # Get remote configuration repo
     if [ ! -d gateway-remote-config ]; then
-        git clone https://github.com/ttn-zh/gateway-remote-config.git
+        git clone https://github.com/radekvozak/gateway-remote-config.git
         pushd gateway-remote-config
     else
         pushd gateway-remote-config
@@ -162,21 +162,21 @@ if [ "$REMOTE_CONFIG" = true ] ; then
 
     popd
 else
-    echo -e "{\n\t\"gateway_conf\": {\n\t\t\"gateway_ID\": \"$GATEWAY_EUI\",\n\t\t\"servers\": [ { \"server_address\": \"router.eu.thethings.network\", \"serv_port_up\": 1700, \"serv_port_down\": 1700, \"serv_enabled\": true } ],\n\t\t\"ref_latitude\": $GATEWAY_LAT,\n\t\t\"ref_longitude\": $GATEWAY_LON,\n\t\t\"ref_altitude\": $GATEWAY_ALT,\n\t\t\"contact_email\": \"$GATEWAY_EMAIL\",\n\t\t\"description\": \"$GATEWAY_NAME\" \n\t}\n}" >$LOCAL_CONFIG_FILE
+    echo -e "{\n\t\"gateway_conf\": {\n\t\t\"gateway_ID\": \"$GATEWAY_EUI\",\n\t\t\"servers\": [ { \"server_address\": \"app.loratech.cz\", \"serv_port_up\": 1700, \"serv_port_down\": 1700, \"serv_enabled\": true } ],\n\t\t\"ref_latitude\": $GATEWAY_LAT,\n\t\t\"ref_longitude\": $GATEWAY_LON,\n\t\t\"ref_altitude\": $GATEWAY_ALT,\n\t\t\"contact_email\": \"$GATEWAY_EMAIL\",\n\t\t\"description\": \"$GATEWAY_NAME\" \n\t}\n}" >$LOCAL_CONFIG_FILE
 fi
 
 popd
 
 echo "Gateway EUI is: $GATEWAY_EUI"
 echo "The hostname is: $NEW_HOSTNAME"
-echo "Open TTN console and register your gateway using your EUI: https://console.thethingsnetwork.org/gateways"
+echo "Open LORATECH APP and register your gateway using your EUI: https://app.loratech.cz"
 echo
 echo "Installation completed."
 
 # Start packet forwarder as a service
 cp ./start.sh $INSTALL_DIR/bin/
-cp ./ttn-gateway.service /lib/systemd/system/
-systemctl enable ttn-gateway.service
+cp ./loratech-gateway.service /lib/systemd/system/
+systemctl enable loratech-gateway.service
 
 echo "The system will reboot in 5 seconds..."
 sleep 5
