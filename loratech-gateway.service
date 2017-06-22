@@ -1,0 +1,12 @@
+[Unit]
+Description=LORATECH Gateway
+
+[Service]
+WorkingDirectory=/opt/loratech-gateway/bin/
+ExecStart=/opt/loratech-gateway/bin/start.sh
+SyslogIdentifier=loratech-gateway
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
