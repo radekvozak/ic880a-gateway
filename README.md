@@ -38,7 +38,7 @@ Reference setup for [The Things Network](http://thethingsnetwork.org/) gateways 
 
         $ sudo visudo
 
-Add the line `ttn ALL=(ALL) NOPASSWD: ALL`
+Add the line `loratech ALL=(ALL) NOPASSWD: ALL`
 
 :warning: Beware this allows a connected console with the ttn user to issue any commands on your system, without any password control. This step is completely optional and remains your decision.
 
