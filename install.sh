@@ -162,7 +162,7 @@ if [ "$REMOTE_CONFIG" = true ] ; then
 
     popd
 else
-    echo -e "{\n\t\"gateway_conf\": {\n\t\t\"gateway_ID\": \"$GATEWAY_EUI\",\n\t\t\"servers\": [ { \"server_address\": \"app.loratech.cz\", \"serv_port_up\": 1700, \"serv_port_down\": 1700, \"serv_enabled\": true } ],\n\t\t\"ref_latitude\": $GATEWAY_LAT,\n\t\t\"ref_longitude\": $GATEWAY_LON,\n\t\t\"ref_altitude\": $GATEWAY_ALT,\n\t\t\"contact_email\": \"$GATEWAY_EMAIL\",\n\t\t\"description\": \"$GATEWAY_NAME\" \n\t}\n}" >$LOCAL_CONFIG_FILE
+    echo -e "{\n\t\"gateway_conf\": {\n\t\t\"gateway_ID\": \"$GATEWAY_EUI\",\n\t\t\"servers\": [\n\t\t {\n\t\t \"server_address\": \"app.loratech.cz\",\n\t\t \"serv_port_up\": 1700,\n\t\t \"serv_port_down\": 1700,\n\t\t \"serv_enabled\": true\n\t\t }, \n\t\t {\n\t\t \"server_address\": \"lora.plzen.eu\",\n\t\t \"serv_port_up\": 1700,\n\t\t \"serv_port_down\": 1700,\n\t\t \"serv_enabled\": true\n\t\t }, \n\t\t {\n\t\t \"server_address\": \"test.loratech.cz\",\n\t\t \"serv_port_up\": 1700,\n\t\t \"serv_port_down\": 1700,\n\t\t \"serv_enabled\": true\n\t\t }, \n\t\t {\n\t\t \"server_address\": \"dev.sfortelem.cz\",\n\t\t \"serv_port_up\": 1700,\n\t\t \"serv_port_down\": 1700,\n\t\t \"serv_enabled\": true\n\t\t }\n\t\t],\n\t\t\"ref_latitude\": $GATEWAY_LAT,\n\t\t\"ref_longitude\": $GATEWAY_LON,\n\t\t\"ref_altitude\": $GATEWAY_ALT,\n\t\t\"contact_email\": \"$GATEWAY_EMAIL\",\n\t\t\"description\": \"$GATEWAY_NAME\" \n\t}\n}" >$LOCAL_CONFIG_FILE
 fi
 
 popd
